@@ -1,0 +1,28 @@
+#1
+import math
+
+def func(x):
+    if (x > 45):
+        return  -math.sqrt(x)
+    return math.sin(2*x)
+
+
+x = int(input("Введіть x = "))
+
+print(func(x))
+#2.1
+def func(p):
+    f0 = 0
+    f1 = 1
+    fn = f0 + f1
+    while (fn < p):
+        f0 = f1
+        f1 = fn
+        fn = f0 + f1
+    return fn
+#2.2
+from modul import func
+
+p = int(input("Введіть p = "))
+
+print(func(p))
