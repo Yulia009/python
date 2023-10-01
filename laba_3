@@ -1,0 +1,16 @@
+#1
+s = str(input("Введіть рядок:"))
+print(s[len(s)-3:])
+
+#2
+        s = str(input("Введіть слово:"))
+if '_' in s:
+    print("символ _ знайдено в рядку і їх ", s.count('_'), " штук" )
+else:
+    print("символ _ не знайдено")
+
+#3
+sentence = input("введіть рядок:")
+words = sentence.split()
+unique = set(words)
+print("Всі унікальні слова в рядку: ", unique)
