@@ -1,0 +1,26 @@
+#1
+n = int(input("Введіть кількість елементів масиву = "))
+
+print(f"Введіть {n} елементів:")
+
+arr = [int(input()) for _ in range(0,n)]
+
+sum = 0
+
+for i in range(0,n):
+    if (arr[i] % 2 == 0 and arr[i] > 0):
+        sum = sum + arr[i]
+
+
+print(f"Сума додатних парних {sum}")
+
+#2
+        n = 7
+a = [[] for i in range(n)]
+for i in range(n):
+    for j in range(n):
+        t = (1+j) % 2
+        a[i].append(t)
+
+for row in a:
+    print(row)
