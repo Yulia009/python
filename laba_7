@@ -1,0 +1,83 @@
+#1
+def print_dictionary_values(dictionary):
+    for journal, value in dictionary.items():
+        print(f"Журнал {journal}: Ціна - {value['price']}, Тираж - {value['circulation']} екз.")
+      
+def add_entry_to_dictionary(dictionary,journal,price, circulation):
+    dictionary[journal] = {'price' : price,'circulation' : circulation}
+
+def remove_entry_from_dictionary(dictionary, journal):
+    if journal in dictionary:
+        del dictionary[journal]
+    else:
+        print(f"Запис з ключем {journal} не знайдено в словнику.")
+
+
+def print_sorted_dictionary(dictionary):
+    sorted_keys = sorted(dictionary.keys())
+    for key in sorted_keys:
+        print(f"{key}: {dictionary[key]}")
+
+
+def average_price_for_low_circulation_journals(journals):
+    total_price = 0
+    count = 0
+
+    for journal in journals.values():
+        if journal["circulation"] < 10000:
+            total_price += journal["price"]
+            count += 1
+
+    if count == 0:
+        return 0  # Уникнемо ділення на нуль, якщо немає журналів з тиражем менше 10 000
+
+    average_price = total_price / count
+    return average_price
+
+
+def main():
+    journals = {
+     1 : {"price": 100, "circulation": 8000},
+     2 : {"price": 150, "circulation": 12000},
+     3 : {"price": 80, "circulation": 5000},
+     4 : {"price": 120, "circulation": 15000},
+     5 : {"price": 90, "circulation": 9000}
+}
+    while True:
+        print("Оберіть операцію:")
+        print("1. Вивести всі значення словника")
+        print("2. Додати запис до словника")
+        print("3. Видалити запис зі словника")
+        print("4. Переглянути вміст словника за відсортованими ключами")
+        print("5. Обчислити середню вартість журналів з тиражем менше 10 000 примірників")
+        print("6. Вийти з програми")
+
+        choice = input("Ваш вибір: ")
+
+        if choice == "1":
+            print("Значення словника:")
+            print_dictionary_values(journals)
+        elif choice == "2":
+            journal = int(input("Введіть номер журнала: "))
+            price = int(input("Введіть ціну "))
+            circulation = int(input("Введіть тираж "))
+            add_entry_to_dictionary(journals, journal, price,circulation)
+            print(f"Додано інформацію про журнал {journal}")
+        elif choice == "3":
+            journal = int(input("Введіть номер журналу запису для видалення: "))
+            remove_entry_from_dictionary(journals, journal)
+            print(f"Видалено інформацію про журнал {journal}")
+        elif choice == "4":
+            print("Вміст словника за відсортованими ключами:")
+            print_sorted_dictionary(journals)
+        elif choice == "5":
+            average_price = average_price_for_low_circulation_journals(journals)
+            print(f"Середня вартість журналів з тиражем менше 10 000 примірників: {average_price:.2f}")
+        elif choice == "6":
+            print("Дякую за використання програми.")
+            break
+        else:
+            print("Невірний вибір операції. Спробуйте ще раз.")
+
+if __name__ == "__main__":
+   main()
