@@ -1,0 +1,54 @@
+#1
+def delete_even_elements(list):
+  list = []
+  n = int(input("Введіть кількість елементів у списку: "))
+  for i in range(n):
+        element = input("Введіть елемент списку: ")
+        list.append(element)
+  print("Ваш список:", list)
+
+  new_list = []
+  for i in range(len(list)):
+      if i % 2 == 0:
+        new_list.append(list[i])
+  print("Ваш список:", new_list)
+  return new_list
+  
+delete_even_elements(list)
+
+#2
+def summa():
+    list = []
+    n = int(input("Введіть кількість елементів у списку: "))
+    for i in range(n):
+        element = int(input("Введіть елемент списку: "))
+        list.append(element)
+    print("Ваш список", list)
+    s = 0
+    for i in range(n):
+        s += list[i]
+  
+    
+
+    print ("Ваша сума:",s)
+
+    return sum
+
+summa()
+
+#3
+def sets():
+    digits_input = "1234567890"
+
+    user_input = input("Введіть набір цифр: ")
+
+    digits_set = set(digits_input)
+    user_set = set(user_input)
+
+    ans = digits_set - user_set
+    if ans:
+       print("Цифри, яких більше в заданому наборі:", ", ".join(sorted(ans)))
+    else:
+       print("У вас є всі цифри з множини {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}.")
+    return ans
+sets()
