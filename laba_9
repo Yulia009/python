@@ -1,0 +1,34 @@
+import re
+
+# Шаг 1: Створення і заповнення файла TF14_1
+try:
+    with open("TF14_1.txt", "w") as file1:
+        file1.write("Текст 123.45 з числом 6789.012. Ще одне число: 0.1234\n")
+        file1.write("Це не число: 12a34, а це 123.45\n")
+        file1.write("Ще декілька чисел: 1.1 2.2 3.3\n")
+        file1.write("Кінець файла.")
+except IOError as e:
+    print("Помилка при створенні/заповненні файла TF14_1.txt:", str(e))
+
+# Шаг 2: Читання та обробка файла TF14_1
+try:
+    with open("TF14_1.txt", "r") as file1_read, open("TF14_2.txt", "w") as file2:
+        number_regex = r'\b\d+\.\d+\b'
+        for line in file1_read:
+            matches = re.findall(number_regex, line)
+            if matches:
+                file2.write(" ".join(matches) + " ")
+except IOError as e:
+    print("Помилка при читанні/запису файла TF14_1.txt або TF14_2.txt:", str(e))
+
+# Шаг 3: знайти макс значення в файле TF14_2
+try:
+    with open("TF14_2.txt", "r") as file2_read:
+        numbers = file2_read.read().split()
+        if numbers:
+            max_value = max(map(float, numbers))
+            print("Найбільше значення  в TF14_2:", max_value)
+        else:
+            print("Файл TF14_2 не містить чисел.")
+except IOError as e:
+    print("Помилка при читанні файла TF14_2.txt:", str(e))
