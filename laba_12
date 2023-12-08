@@ -1,0 +1,65 @@
+import json
+
+
+fileName = "data.json"
+
+
+def print_json(file_data):
+   print(json.dumps(file_data))
+
+def build_new_magazine():
+   print("Add: ")
+   Name = input("Name:")
+   Prise = input("Prise:")
+   Amount = input("Amount:")
+   data = {"magazine": Name, "prise": Prise, "amount": Amount}
+   return data
+
+def load_json_from_file(filename):
+   with open(filename,'r+') as file:
+       file_data = json.load(file)
+  
+   file.close
+   return file_data
+
+def add_to_json(file_data, new_data):
+   file_data['magazines'].append(new_data)
+   return file_data
+
+def append_to_file(filename, file_data):
+   with open(filename,'r+') as file:
+       file.seek(0)
+       json.dump(file_data, file, indent = 4)
+
+
+file_data = load_json_from_file("data.json")
+
+
+while True:   
+   print("Select an option:\n"
+          + "1 - Add data\n"
+          + "2 - View data\n"
+          + "3 - Find magazines more that 10 000 amount \n"
+          + "4 - Exit")
+   x = input("Choose an option:\n")
+   x = int(x)
+  
+   if x == 1:
+       file_data = load_json_from_file("data.json")
+       file_data = add_to_json(file_data, build_new_magazine())
+       append_to_file(fileName, file_data)
+       file_data = load_json_from_file("data.json")
+  
+   if x == 2:
+       print_json(file_data)
+  
+   if x == 3:
+           magazines = file_data
+           rows = magazines['magazines']
+           for row in rows:
+               for key, val in row.items():
+                   if (key == 'amount' and int(val) > 10000):
+                       print(row)           
+  
+   if x == 4:
+       quit(0)
