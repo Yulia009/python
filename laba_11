@@ -1,0 +1,58 @@
+import csv
+
+import os
+
+flag = False
+
+try:
+
+    csvfile = open("data.csv","r")
+
+    reader = csv.DictReader(csvfile, delimiter = ",")
+
+    for row in reader:
+        print(row['Country Name'], ': ', row["2019"])
+
+    csvfile.close
+
+except:
+
+    print("Файл data.csv не знайдено!")
+
+try:
+
+    csvfile = open("data.csv","r")
+
+    reader = csv.DictReader(csvfile, delimiter = ",")
+
+    countryName = input("\nВведіть назву країни яку шукаємо: ")
+
+    os.system('clear')
+
+    print("Country Name: " + countryName)
+
+    for row in reader:
+
+        if countryName == row['Country Name']:
+
+            flag = True
+
+            print(row["Country Name"], ": ", row["2019"])
+
+            with open("data-out.csv","a") as csvfile2:
+
+                writer = csv.writer(csvfile2, delimiter = ",")
+
+                writer.writerow((row["Country Name"], row["2019"]))
+
+    csvfile.close
+
+    if flag == False:
+
+        os.system('clear')
+
+        print("По даній країні (" + countryName + ") - даних немає.")
+
+except:
+
+    print("Файл data.csv не знайдено!")
