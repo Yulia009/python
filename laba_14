@@ -1,0 +1,92 @@
+#Task 1 
+import matplotlib.pyplot as plt  
+
+
+import numpy as np
+
+
+t = np.linspace(0, 5, 51) 
+
+
+# y = np.cos(t**2)/t
+y = -5*np.cos(10*t)*np.sin(3*t)/(t**t)
+
+
+plt.plot(t, y, label='-5*cos(10*x)*sin(3*x)/(x^x)', color = "red", linewidth = 5)
+
+
+plt.title('My Function', fontsize=15)   # назва графіка 
+
+
+plt.xlabel('x', fontsize=12, color='blue') # позначення вісі абсцис
+plt.ylabel('y', fontsize=12, color='blue') # позначення вісі ординат  
+plt.legend()
+plt.grid(True)
+plt.show()
+#Task 2
+import numpy as np
+import matplotlib.pyplot as plt 
+import sys
+import os
+
+x = []
+for i in range(2000,2019):
+    x.append(i)
+
+y = [1.99586999416351,8.08292961120605,8.16621017456055,7.68099021911621,7.73538017272949,7.5545802116394,7.6660099029541,8.14208030700684,8.0484504699707,8.69250011444092,9.82785987854004,10.7131900787354,11.3238000869751,15.9672603607178,16.2605400085449,16.460880279541,16.80419921875,16.3829097747803,16.3474807739258]
+z = [3.64862990379333,3.68513989448547,0.00870999973267317,0.0751300007104874,0.0511699989438057,0.0463300012052059,0.0262299999594688,0.0424700006842613,0.59144002199173,0.0881699994206429,1.04614996910095,2.37165999412537,0.394870012998581,0.752650022506714,0.558160006999969,1.09270000457764,1.88976001739502,1.88673996925354,1.78022003173828]
+
+
+
+
+np.array(x)
+np.array(y)
+np.array(z)
+plt.plot(x, z, label='Ukraine', color = "purple")
+plt.plot(x, y, label='United Kingdom', color = "yellow")
+plt.title('Children out of school', fontsize=15)   # назва графіка
+plt.xlabel('Year', fontsize=12, color='red') # позначення вісі абсцис
+plt.ylabel('Indicator', fontsize=12, color='red') # позначення вісі ординат
+plt.legend()
+plt.grid(True)
+plt.show()
+#Task 3 
+import json
+import numpy as np
+import matplotlib.pyplot as plt  
+
+fileName = "data.json" 
+
+
+def load_json_from_file(filename):
+    with open(filename,'r+') as file:
+        file_data = json.load(file)
+    
+    file.close
+    return file_data
+
+
+x = []
+y = []
+
+magazines = load_json_from_file(fileName)
+rows = magazines['magazines']
+for row in rows:
+    for key, val in row.items():
+        if (key == 'name'):
+            x.append(val)
+        if (key == 'amount'):            
+            y.append(val)         
+
+print("Informations about magazines from lab 12:")
+np.array(x)
+np.array(y)
+
+print(len(x))
+print(len(y))
+
+fig, ax = plt.subplots()
+ax.pie(y, labels = x)
+ax.axis("equal")
+plt.legend() 
+plt.show()
