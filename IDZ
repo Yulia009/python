@@ -1,0 +1,64 @@
+import nltk
+import configparser
+import tweepy
+import pandas as pd
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+
+sia = SentimentIntensityAnalyzer()
+
+
+# read config
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['twitter']['api_key']
+api_key_secret = config['twitter']['api_key_secret']
+
+access_token = config['twitter']['access_token']
+access_token_secret = config['twitter']['access_token_secret']
+
+# authenticate
+auth = tweepy.OAuthHandler(api_key, api_key_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+
+public_tweets = api.home_timeline()
+print(public_tweets)
+
+
+# create dataframe
+columns = ['Time', 'User', 'Tweet']
+
+data = []
+for tweet in public_tweets:
+   data.append([tweet.created_at, tweet.user.screen_name, tweet.text])
+
+df = pd.DataFrame(data, columns=columns)
+
+df.to_csv('tweets.csv')
+
+nltk.download('vader_lexicon')
+
+sia = SentimentIntensityAnalyzer()
+
+
+def sentiment(message):
+   sentiment_score = sia.polarity_scores(message)['compound']
+   print(f"Текст {message}")
+   print(f"Віддінок {sentiment_score}")
+   if (sentiment_score >= 0.05):
+       return "Позитивний"
+   elif sentiment_score <= -0.05:
+       return "Негативний"
+   else:
+       return "Нейтральний"
+  
+def process_all():
+   for line in open("tweets.csv"):
+       row = line.split(',')
+       sentiment(message=row[2])
+
+process_all()
