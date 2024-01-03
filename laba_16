@@ -1,0 +1,117 @@
+#1
+import nltk
+import string
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import Counter #словник, який дозволяє рахувати кількість незмінюваних об'єктів (напр. рядки)
+
+try:
+   File = open('chesterton-thursday.txt', 'r', encoding='utf-8')
+except FileNotFoundError:
+   print("Файл не знайдено!")
+   exit(0)
+
+text = File.read()
+
+
+def count_words(text):
+   nltk.download('punkt')
+   sentences = nltk.sent_tokenize(text) #токенізація по реченням
+   k_words = 0
+
+   for sentence in sentences:
+       words = nltk.word_tokenize(sentence)
+       #words - список зі словами
+       k_words += len(words)
+
+   return k_words
+
+
+def most_used_words(text):
+   text1 = text.split() #cписок зі словами
+   cnt = Counter(text1) #підрахунок слів
+   cort = cnt.most_common(10)
+   x = [cort[el][0] for el in range(len(cort))] #слова
+
+   y = [cort[el][1] for el in range(len(cort))] #к-ть повторень у тексті
+
+   plt.bar(x, y)
+   plt.title("10 найбільш вживаних слів у тексті")
+   plt.xlabel("Слова") #підписи по осям
+   plt.ylabel("Зустрічаються разів у тексті")
+   plt.show()
+
+
+print(count_words(text))
+most_used_words(text)
+
+#2
+
+import nltk
+import string
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import Counter #словник, який дозволяє рахувати кількість незмінюваних об'єктів (напр. рядки)
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+import re
+
+try:
+   File = open('input.txt', 'r', encoding='utf-8')
+except FileNotFoundError:
+   print("Файл не знайдено!")
+   exit(0)
+
+#виделення пунктуації
+def remove_punktuation(text):
+   print("Текст без пунктуації")
+   for p in string.punctuation:
+       if p in text:
+           text = text.replace(p, '')
+
+   print(text)
+   return text
+
+
+text = remove_punktuation(File.read())
+
+nltk.download('wordnet')
+
+
+
+#Токенізація по словам
+
+words = word_tokenize(text)
+
+# Лемматизація та стеммінг
+def stem(word):
+   stemmer = PorterStemmer()
+   return stemmer.stem(word)
+
+def lem(word):
+   wordnet_lemmatizer = WordNetLemmatizer()
+   return wordnet_lemmatizer.lemmatize(word)
+
+#print(lem_stem("going"))
+
+print("Лемматизація та стеммінг")
+for el in words:
+   print(el, '->', stem(el), '->', lem(el))
+
+
+#видалення стоп-слів
+def remove_stop_words(words):
+   nltk.download('stopwords')
+   en_stops = set(stopwords.words('english'))
+   cleared = []
+   for word in words:
+       if word not in en_stops:
+           # print(word)
+           cleared.append(word)
+  
+   return set(cleared)
+
+print("видалення стоп-слів")
+print(remove_stop_words(words))
